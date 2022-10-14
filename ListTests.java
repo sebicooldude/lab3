@@ -10,8 +10,8 @@ public class ListTests {
     List<String> output = new ArrayList<>();
     input1.add("a");
     input1.add("c");
-    input1.add("b");
-    input1.add("d");
+    input2.add("b");
+    input2.add("d");
     output.add("a");
     output.add("b");
     output.add("c");

@@ -3,16 +3,16 @@ import java.util.List;
 
 interface StringChecker { boolean checkString(String s); }
 
-public class ListExamples {
+class ListExamples {
 
   // Returns a new list that has all the elements of the input list for which
   // the StringChecker returns true, and not the elements that return false, in
   // the same order they appeared in the input list;
   static List<String> filter(List<String> list, StringChecker sc) {
     List<String> result = new ArrayList<>();
-    for(int i = 0; i<list.size();i++) {
-      if(sc.checkString(list.get(i))) {
-        result.add(list.get(i));
+    for(String s: list) {
+      if(sc.checkString(s)) {
+        result.add(0, s);
       }
     }
     return result;
@@ -23,30 +23,27 @@ public class ListExamples {
   // and return a new list that has all the strings in both list in sorted order.
   static List<String> merge(List<String> list1, List<String> list2) {
     List<String> result = new ArrayList<>();
-    List<String> tempList = new ArrayList<>();
-    for (int i = 0; i<list1.size(); i++){
-      tempList.add(list1.get(i));
-    }
-    for (int i = 0; i<list2.size(); i++){
-      tempList.add(list2.get(i));
-    }
-    int size = tempList.size();
-    for (int j = 0; j<size; j++){
-      String currentsmallest = tempList.get(0);
-      for (int i = 0; i<tempList.size(); i++){
-        if (currentsmallest.compareTo(tempList.get(i)) > 0){
-          currentsmallest = tempList.get(i);
-        }
+    int index1 = 0, index2 = 0;
+    while(index1 < list1.size() && index2 < list2.size()) {
+      if(list1.get(index1).compareTo(list2.get(index2)) < 0) {
+        result.add(list1.get(index1));
+        index1 += 1;
       }
-      result.add(currentsmallest);
-      int count = 0;
-      for(int m = 0; m < tempList.size(); m++){
-        if (tempList.get(m).equals(currentsmallest)){
-          tempList.remove(m);
-        }
+      else {
+        result.add(list2.get(index2));
+        index2 += 1;
       }
+    }
+    while(index1 < list1.size()) {
+      result.add(list1.get(index1));
+      index1 += 1;
+    }
+    while(index2 < list2.size()) {
+      result.add(list2.get(index2));
+      index1 += 1;
     }
     return result;
-      }
+  }
+
 
 }
